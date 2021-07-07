@@ -4,6 +4,8 @@ It is time to make a first research based on the documentation [Intel 64 and IA-
 Refer to the section 3.4.3 of the first volume to learn about register rflags. What is the meaning of flags CF, AF, ZF, OF, SF? 
 What is the difference between OF and CF?
 
+Answer
+
 (a) Meaning of flags
 
 3.4.3.1  Status Flags
