@@ -70,44 +70,116 @@
 
 \maketitle
 Bellow we have the questions and the answers about low level programming, Its are in the book and the git hub from Apress \cite{zhirkov} and \cite{gitzhirkov}.\\
-\\
-\textbf{Question 1)}\\
-\\
-It is time to make a first research based on the documentation [Intel 64 and IA-32 Architectures Software Developer's Manual]. Refer to the section 3.4.3 of the first volume to learn about register rflags. What is the meaning of flags CF, AF, ZF, OF, SF? What is the difference between OF and CF?\\
-\\
-\textbf{Answer:}\\
-\\
-\textbf{(a) Meaning of flags}\\
-\\
-3.4.3.1  Status Flags: The status flags (bits 0, 2, 4, 6, 7, and 11) of the EFLAGS register indicate the results of arithmetic instructions, such as the ADD, SUB, MUL, and DIV instructions. The status flag functions are:\\
-\\
-\textbf{CF} (bit 0) Carry flag — Set if an arithmetic operation generates a carry or a borrow out of the most-significant bit of the result; cleared otherwise. This flag indicates an overflow condition for unsigned-integer arithmetic. It is also used in multiple-precision arithmetic.\\
-\\
-\textbf{PF} (bit 2) Parity flag — Set if the least-significant byte of the result contains an even number of 1 bits; cleared otherwise.\\
-\\
-\textbf{AF} (bit 4) Auxiliary Carry flag — Set if an arithmetic operation generates a carry or a borrow out of bit 3 of the result; cleared otherwise. This flag is used in binary-coded decimal (BCD) arithmetic.\\
-\\
-\textbf{ZF} (bit 6) Zero flag — Set if the result is zero; cleared otherwise.\\
-\\
-\textbf{SF} (bit 7) Sign flag — Set equal to the most-significant bit of the result, which is the sign bit of a signed integer. (0 indicates a positive value and 1 indicates a negative value.)\\
-\\
-\textbf{O}F (bit 11) Overflow flag — Set if the integer result is too large a positive number or too small a negative number (excluding the sign-bit) to fit in the destination operand; cleared otherwise. This flag indicates an overflow condition for signed-integer (two’s complement) arithmetic.\\
-\\
-\textbf{(b) Difference between OF and CF}\\
-\\
-If the result of an arithmetic operation is treated as an unsigned integer, the CF flag indicates an out-of-range condition (carry or a borrow); if treated as a signed integer (two’s complement number), the OF flag indicates a carry or borrow. In other words, CF works with unsigned integers and OF works with signed integers.\\
-\\
-\textbf{Question 2)}\\
-\\
-What are the key principles of von Neumann architecture?\\
-\\
-\textbf{Answer:}\\
+
+\textbf{Question 1)} It is time to make a first research based on the documentation [Intel 64 and IA-32 Architectures Software Developer's Manual]. Refer to the section 3.4.3 of the first volume to learn about register rflags. What is the meaning of flags CF, AF, ZF, OF, SF? What is the difference between OF and CF?
+
+Answer:
+
+\begin{itemize}
+    \item \textbf{(a) Meaning of flags}: 3.4.3.1  Status Flags: The status flags (bits 0, 2, 4, 6, 7, and 11) of the EFLAGS (In 64-bit mode, EFLAGS is extended to 64 bits and called RFLAGS. The upper 32 bits of RFLAGS register is reserved. The lower 32 bits of RFLAGS is the same as EFLAGS) register indicate the results of arithmetic instructions, such as the ADD, SUB, MUL, and DIV instructions. The status flag functions are:
+    \begin{itemize}
+        \item \textbf{CF} (bit 0) Carry flag — Set if an arithmetic operation generates a carry or a borrow out of the most-significant bit of the result; cleared otherwise. This flag indicates an overflow condition for unsigned-integer arithmetic. It is also used in multiple-precision arithmetic.
+        \item \textbf{CF} (bit 0) Carry flag — Set if an arithmetic operation generates a carry or a borrow out of the most-significant bit of the result; cleared otherwise. This flag indicates an overflow condition for unsigned-integer arithmetic. It is also used in multiple-precision arithmetic.
+        \item \textbf{PF} (bit 2) Parity flag — Set if the least-significant byte of the result contains an even number of 1 bits; cleared otherwise.
+        \item \textbf{AF} (bit 4) Auxiliary Carry flag — Set if an arithmetic operation generates a carry or a borrow out of bit 3 of the result; cleared otherwise. This flag is used in binary-coded decimal (BCD) arithmetic.
+        \item \textbf{ZF} (bit 6) Zero flag — Set if the result is zero; cleared otherwise.
+        \item \textbf{SF} (bit 7) Sign flag — Set equal to the most-significant bit of the result, which is the sign bit of a signed integer. (0 indicates a positive value and 1 indicates a negative value.)
+        \item \textbf{OF} (bit 11) Overflow flag — Set if the integer result is too large a positive number or too small a negative number (excluding the sign-bit) to fit in the destination operand; cleared otherwise. This flag indicates an overflow condition for signed-integer (two’s complement) arithmetic.
+    \end{itemize}
+    \item \textbf{(b) Difference between OF and CF}: If the result of an arithmetic operation is treated as an unsigned integer, the CF flag indicates an out-of-range condition (carry or a borrow); if treated as a signed integer (two’s complement number), the OF flag indicates a carry or borrow. In other words, CF works with unsigned integers and OF works with signed integers.
+\end{itemize}
+
+\textbf{Question 2)} What are the key principles of von Neumann architecture?
+
+Answer:
+
 \begin{itemize}
     \item Memory stores only bits (a unit of information, a value equal 0 or 1).
     \item Memory stores both encoded instructions and data to operate on. There are no means to distinguish data from code: both are in fact bit strings.
     \item Memory is organized into cells, which are labeled with their respective indices in a natural way (for example, the cell \#43 follows the cell \#42). The indices start at 0. Cell size may vary (Von Neumann thought that each bit should have its address). Moderns computers take one byte (eight bits) as a memory cell size. So, the 0-th byte holds the first eight bits os the memory.
     \item The program consists of instructions that are fetched one after another. Their execution is sequential unless a special jump instruction is executed.
 \end{itemize}
+
+\textbf{Question 3)} What are registers?
+
+Answer:
+
+	Registers are memory cells placed directly on the CPU chip. Circuit-wise they are much faster, but they are also more
+complicated and expensive. Register accesses do not use the bus. The response time is quite small and usually equals a couple of CPU
+cycles.
+
+\textbf{Question 4)} What is the hardware stack?
+
+Answer:
+
+	A hardware stack is a kind of emulation impemented with two machine's instructions (push and pop) and one register (rsp). A new
+element cam be puted on the top of stack by a push operation or it can be pulled of the top of stack by a pop operation. The register
+rsp is the stack pointer to the element that we put or pull at stack, It holds the address of this element.
+
+\textbf{Question 5)} What are the interrupts?
+
+Answer:
+
+	Interrupts are the way to change the order of execution of a program by an external event of this program. After a signal
+(internal or external) is caught, a program's execution is suspended, some registers are saved and the CPU starts executing a special
+routine to handle the situation. For exaples:
+\begin{enumerate}
+    \item A signal from an external device (external signal);
+	\item Zero division (internal signal);
+	\item Invalid instruction (when the CPU failed to recognize an instruction by its binary representation - internal signal);
+	\item An attempt to execute a privileged instruction in a non-privileged mode (internal signal).
+\end{enumerate}
+
+\textbf{Question 6)} What are the main problems that the modern extensions of von Neumann model are trying to solve?
+
+Answer:
+
+\begin{enumerate}
+    \item Nothing is possible without querying slow memory
+    \item Lack of interactivity
+    \item No support for code isolation in procedures, or for context saving
+    \item Multitasking: any program can execute any instruction
+    \item Multitasking: programs are not isolated from one another
+\end{enumerate}
+    
+\textbf{Question 7)} What are the main general purpose registers of Intel 64?
+
+Answer:
+
+\begin{enumerate}
+    \item rax - It works as a kind of acumulator at arithmetics instructions.
+    \item rbx - Base register. Was used to hold addresses of base in old models of microprocessors.
+    \item rcx - Use in cycles.
+    \item rdx - Holds data in io instructions.
+    \item rdi - Indice of finish in strings manipulation.
+    \item rsi - Indice of start in strings manipulation.
+    \item rbp - Base of stack frame.
+    \item rsp - Holds the address of the element at the top of a stack hardware.
+    \item r8 to r15 - They appears after. Their principal uses is to hold variables. Some time they are used internal to CPU,
+    for example, r10 holds flags of CPU when a syscall is executed.
+\end{enumerate}
+
+\textbf{Question 8)} What is the purpose of stack pointer?
+
+Answer
+
+	rsp register hold the absolute address of the last element in stack, its top element. Performing some instructions such as call, push, pop changes its value implicitly.
+	
+\textbf{Question 9)} Can the stack be empty?
+
+Answer:
+
+	We never know, how many elements are in stack. We can execute pop instruction as many times as we like, and we will always get something from the memory. Each time the rsp value will increase.
+
+Being unable to reason about the amount of elements in stack, this question has no sense.
+
+\textbf{Question 10)} Can we count elements in stack?
+
+Answer:
+
+	We never know, how many elements are in stack. We can execute pop instruction as many times as we like, and we will always get something from the memory. Each time the rsp value will increase.
+
+So, no, we are unable to reason about the amount of elements in stack at all.
 
 
 
